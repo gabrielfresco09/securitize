@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import PaginatedTable from "./PaginatedTable";
 import { getFavorites } from "../helpers/api";
 import { getFavouriteColumns } from "../helpers/tableColumns";
@@ -29,6 +30,10 @@ const Favorites = ({ shouldUpdate }) => {
       showPagination={false}
     />
   );
+};
+
+Favorites.propTypes = {
+  shouldUpdate: PropTypes.bool.isRequired
 };
 
 export default Favorites;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -15,7 +16,13 @@ const useStyles = makeStyles({
   }
 });
 
-const PaginatedTable = ({ columns, rows, fetchData, rowsPerPage, showPagination }) => {
+const PaginatedTable = ({
+  columns,
+  rows,
+  fetchData,
+  rowsPerPage,
+  showPagination
+}) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const handleChangePage = (event, newPage) => {
@@ -74,6 +81,25 @@ const PaginatedTable = ({ columns, rows, fetchData, rowsPerPage, showPagination 
       )}
     </Paper>
   );
+};
+
+PaginatedTable.defaultProps = {
+  rowsPerPage: 25
+};
+
+PaginatedTable.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      align: PropTypes.string,
+      format: PropTypes.func
+    })
+  ).isRequired,
+  rows: PropTypes.arrayOf(PropTypes.shape(PropTypes.any)).isRequired,
+  fetchData: PropTypes.func.isRequired,
+  rowsPerPage: PropTypes.number,
+  showPagination: PropTypes.bool.isRequired
 };
 
 export default PaginatedTable;
