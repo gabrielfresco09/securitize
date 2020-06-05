@@ -9,6 +9,9 @@ routes.get("/currencies", async function(req, res, next) {
   try {
     const { data } = await getCurrencies(req.query);
     const finalData = data.data.map(currency => {
+      /* assuming that iterating over this array won't be too expensive,
+       I prefer to do the work here to give the possibility to the frontend 
+       to already know if it's a favourite */
       const fav = _.find(favourites, fav => fav.id == currency.id);
       currency.isFav = !!fav;
       return currency;
@@ -26,6 +29,7 @@ routes.get("/currencies/favourites", function(req, res, next) {
 routes.post("/currencies/favourites", function(req, res, next) {
   try {
     const newFav = req.body;
+    newFav.isFav = true;
     favourites.push(newFav);
     res.send(newFav);
   } catch (err) {
@@ -36,7 +40,8 @@ routes.post("/currencies/favourites", function(req, res, next) {
 routes.delete("/currencies/favourites/:id", function(req, res, next) {
   try {
     const { id } = req.params;
-    const deleted = _.remove(favourites, fav => fav.id == id);
+    const [deleted] = _.remove(favourites, fav => fav.id == id);
+    deleted.isFav = false;
     res.send(deleted);
   } catch (err) {
     res.status(500).send({ error: err.message });

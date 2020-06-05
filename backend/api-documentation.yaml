@@ -1,0 +1,202 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: 'Securitize'
+  description: 'Securitize API specification'
+# Added by API Auto Mocking Plugin
+schemes:
+  - http
+paths:
+  /currencies:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: start
+          type: number
+          required: true
+        - in: query
+          name: limit
+          type: number
+          required: true
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+              items: 
+                $ref: '#/definitions/CurrencyItem'
+            example:
+              id: 1
+              name: Bitcoin
+              symbol: BTC
+              slug: bitcoin
+              num_market_pairs: 8338
+              tags: [mineable]
+              max_supply: 21000000
+              circulating_supply: 18394418
+              total_supply: 18394418
+              platform: null
+              cmc_rank: 1
+              quote: { USD: { price: 9812.1247586 } }
+              isFav: false
+        '500':
+          description: Internal sever error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /currencies/favourites:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+              items: 
+                $ref: '#/definitions/CurrencyItem'
+            example:
+              id: 1
+              name: Bitcoin
+              symbol: BTC
+              slug: bitcoin
+              num_market_pairs: 8338
+              tags: [mineable]
+              max_supply: 21000000
+              circulating_supply: 18394418
+              total_supply: 18394418
+              platform: null
+              cmc_rank: 1
+              quote: { USD: { price: 9812.1247586 } }
+              isFav: false
+        '500':
+          description: Internal sever error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          type: object
+          schema:
+            $ref: '#/definitions/CurrencyItem'
+          required: true
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+              items: 
+                $ref: '#/definitions/CurrencyItem'
+            example:
+              id: 1
+              name: Bitcoin
+              symbol: BTC
+              slug: bitcoin
+              num_market_pairs: 8338
+              tags: [mineable]
+              max_supply: 21000000
+              circulating_supply: 18394418
+              total_supply: 18394418
+              platform: null
+              cmc_rank: 1
+              quote: { USD: { price: 9812.1247586 } }
+              isFav: true
+        '500':
+          description: Internal sever error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /currencies/favourites/{id}:
+    delete:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+              items: 
+                $ref: '#/definitions/CurrencyItem'
+            example:
+              id: 1
+              name: Bitcoin
+              symbol: BTC
+              slug: bitcoin
+              num_market_pairs: 8338
+              tags: [mineable]
+              max_supply: 21000000
+              circulating_supply: 18394418
+              total_supply: 18394418
+              platform: null
+              cmc_rank: 1
+              quote: { USD: { price: 9812.1247586 } }
+              isFav: false
+        '500':
+          description: Internal sever error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+   
+definitions:
+  CurrencyItem:
+    type: object
+    properties:
+      id: 
+        type: integer
+      name: 
+        type: string
+      symbol: 
+        type: string
+      slug: 
+        type: string
+      num_market_pairs: 
+        type: number
+      date_added: 
+        type: date-time
+      tags: 
+        type: array
+        items: 
+          type: string
+      max_supply: 
+        type: number
+      circulating_supply: 
+        type: number
+      total_supply: 
+        type: number
+      platform: 
+        type: string
+      cmc_rank: 
+        type: number
+      last_updated: 
+        type: date-time
+      quote: 
+        type: object
+      isFav: 
+        type: boolean
+
