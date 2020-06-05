@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 });
 
-const PaginatedTable = ({ columns, rows, fetchData, rowsPerPage }) => {
+const PaginatedTable = ({ columns, rows, fetchData, rowsPerPage, showPagination }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const handleChangePage = (event, newPage) => {
@@ -63,13 +63,15 @@ const PaginatedTable = ({ columns, rows, fetchData, rowsPerPage }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        component="div"
-        count={3000} // FIXME coinmarketcap doensn't return a total count
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-      />
+      {showPagination && (
+        <TablePagination
+          component="div"
+          count={3000} // FIXME coinmarketcap doesn't return a total count
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+        />
+      )}
     </Paper>
   );
 };

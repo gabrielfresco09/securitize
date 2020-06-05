@@ -31,8 +31,8 @@ export const getCurrenciesColumns = handleFavClick => [
       circulating_supply.toLocaleString("en-US").concat(" USD")
   },
   {
-    id: "favourites",
-    label: "Favourites",
+    id: "favorites",
+    label: "Favorites",
     align: "right",
     format: (item, index) => (
       <IconButton onClick={() => handleFavClick(item, index)}>

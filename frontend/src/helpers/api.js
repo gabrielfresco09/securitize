@@ -10,11 +10,11 @@ export const getIcon = name =>
     `https://s2.coinmarketcap.com/static/img/coins/64x64/${name.toLowerCase()}.png`
   );
 
-export const addFavourite = favourite =>
-  axios.post("http://localhost:3001/currencies/favourites", favourite);
+export const addFavourite = favorite =>
+  axios.post("http://localhost:3001/currencies/favorites", favorite);
 
 export const removeFavourite = id =>
-  axios.delete(`http://localhost:3001/currencies/favourites/${id}`);
+  axios.delete(`http://localhost:3001/currencies/favorites/${id}`);
 
-export const getFavourites = () =>
-  axios.get("http://localhost:3001/currencies/favourites");
+export const getFavorites = () =>
+  axios.get("http://localhost:3001/currencies/favorites");

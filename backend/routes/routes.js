@@ -3,7 +3,7 @@ const routes = express.Router();
 const { getCurrencies } = require("../api/requests");
 const _ = require("lodash");
 
-const favourites = [];
+const favorites = [];
 
 routes.get("/currencies", async function(req, res, next) {
   try {
@@ -11,8 +11,8 @@ routes.get("/currencies", async function(req, res, next) {
     const finalData = data.data.map(currency => {
       /* assuming that iterating over this array won't be too expensive,
        I prefer to do the work here to give the possibility to the frontend 
-       to already know if it's a favourite */
-      const fav = _.find(favourites, fav => fav.id == currency.id);
+       to already know if it's a favorite */
+      const fav = _.find(favorites, fav => fav.id == currency.id);
       currency.isFav = !!fav;
       return currency;
     });
@@ -22,25 +22,25 @@ routes.get("/currencies", async function(req, res, next) {
   }
 });
 
-routes.get("/currencies/favourites", function(req, res, next) {
-  res.send(favourites);
+routes.get("/currencies/favorites", function(req, res, next) {
+  res.send(favorites);
 });
 
-routes.post("/currencies/favourites", function(req, res, next) {
+routes.post("/currencies/favorites", function(req, res, next) {
   try {
     const newFav = req.body;
     newFav.isFav = true;
-    favourites.push(newFav);
+    favorites.push(newFav);
     res.send(newFav);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
 });
 
-routes.delete("/currencies/favourites/:id", function(req, res, next) {
+routes.delete("/currencies/favorites/:id", function(req, res, next) {
   try {
     const { id } = req.params;
-    const [deleted] = _.remove(favourites, fav => fav.id == id);
+    const [deleted] = _.remove(favorites, fav => fav.id == id);
     deleted.isFav = false;
     res.send(deleted);
   } catch (err) {

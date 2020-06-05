@@ -26,5 +26,9 @@ app.use("/", (req, res, next) => {
 app.use("/", routes);
 
 app.listen(3001, () => {
+  /* Just to mention, I tried to integrate mongoose, but I kept getting 
+  { MongoError: user is not allowed to do action [find] on [test-db-2.favorites]
+  ok: 0, code: 8000, codeName: 'AtlasError', name: 'MongoError' }` 
+  so I left that integration behind */
   console.log("Server running on port 3001");
 });

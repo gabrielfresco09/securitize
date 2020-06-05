@@ -21,7 +21,6 @@ const CurrenciesList = () => {
           : `Added ${item.name} to favs`,
         handleClose
       });
-      debugger;
       currencies[index] = data;
       setCurrencies([...currencies]);
     } catch (err) {
@@ -32,8 +31,6 @@ const CurrenciesList = () => {
       });
     }
   };
-
-  const columns = getCurrenciesColumns(handleFavClick);
 
   const fetchCurrencies = async params => {
     try {
@@ -55,6 +52,8 @@ const CurrenciesList = () => {
     setSnackBarInfo({ open: false, message: "", handleClose });
   };
 
+  const columns = getCurrenciesColumns(handleFavClick);
+
   return (
     <div>
       <PaginatedTable
@@ -62,6 +61,7 @@ const CurrenciesList = () => {
         fetchData={fetchCurrencies}
         columns={columns}
         rowsPerPage={25}
+        showPagination={true}
       />
       <CustomSnackBar {...snackBarInfo} />
     </div>
