@@ -7,11 +7,14 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import { CustomPagination } from "./CustomPagination";
 
 const useStyles = makeStyles({
   table: {
+    minWidth: "100%"
+  },
+  root: {
     minWidth: "100%"
   }
 });
@@ -54,29 +57,25 @@ const PaginatedTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => {
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                  {columns.map(column => {
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {column.format(row, index)}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
+            {rows.map((row, index) => (
+              <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                {columns.map(column => {
+                  return (
+                    <TableCell key={column.id} align={column.align}>
+                      {column.format(row, index)}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
       {showPagination && (
-        <TablePagination
-          component="div"
-          count={3000} // FIXME coinmarketcap doesn't return a total count
-          rowsPerPage={rowsPerPage}
+        <CustomPagination
           page={page}
-          onChangePage={handleChangePage}
+          handleChangePage={handleChangePage}
+          rowsPerPage={rowsPerPage}
         />
       )}
     </Paper>

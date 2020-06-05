@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PaginatedTable from "./PaginatedTable";
 import { getFavorites } from "../helpers/api";
 import { getFavouriteColumns } from "../helpers/tableColumns";
+import { Title } from "./Title";
 
 const columns = getFavouriteColumns();
 
@@ -23,12 +24,15 @@ const Favorites = ({ shouldUpdate }) => {
   }, [shouldUpdate]);
 
   return (
-    <PaginatedTable
-      rows={favorites}
-      fetchData={fetchFavorites}
-      columns={columns}
-      showPagination={false}
-    />
+    <div>
+      <Title title="Favorite assets" />
+      <PaginatedTable
+        rows={favorites}
+        fetchData={fetchFavorites}
+        columns={columns}
+        showPagination={false}
+      />
+    </div>
   );
 };
 

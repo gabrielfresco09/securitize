@@ -3,6 +3,7 @@ import PaginatedTable from "./PaginatedTable";
 import { getCurrencies, addFavourite, removeFavourite } from "../helpers/api";
 import CustomSnackBar from "./CustomSnackBar";
 import { getCurrenciesColumns } from "../helpers/tableColumns";
+import { Title } from "./Title";
 
 const CurrenciesList = () => {
   const [currencies, setCurrencies] = useState([]);
@@ -56,6 +57,7 @@ const CurrenciesList = () => {
 
   return (
     <div>
+      <Title title="Cryptocurrencies" />
       <PaginatedTable
         rows={currencies}
         fetchData={fetchCurrencies}
