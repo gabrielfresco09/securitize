@@ -10,6 +10,7 @@ const sharedColumns = [
     format: ({ id, name }) => (
       <div className="BlockName">
         <img
+          alt={`${name} logo`}
           width="30"
           src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${id}.png`}
         />

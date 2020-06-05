@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core";
 
@@ -10,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export const CustomPagination = ({ rowsPerPage, handleChangePage, page }) => {
+const CustomPagination = ({ rowsPerPage, handleChangePage, page }) => {
   const classes = useStyles();
 
   return (
@@ -26,3 +27,11 @@ export const CustomPagination = ({ rowsPerPage, handleChangePage, page }) => {
     </div>
   );
 };
+
+CustomPagination.propTypes = {
+  rowsPerPage: PropTypes.number.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired
+};
+
+export default CustomPagination;
