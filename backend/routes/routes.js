@@ -28,7 +28,7 @@ routes.post("/currencies/favorites", function(req, res, next) {
 
 routes.delete("/currencies/favorites/:id", function(req, res, next) {
   try {
-    const deleted = service.deleteFav(favId, favorites);
+    const deleted = service.deleteFav(req.params.id, favorites);
     res.send(deleted);
   } catch (err) {
     res.status(500).send({ error: err.message });
