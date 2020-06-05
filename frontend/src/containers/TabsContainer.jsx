@@ -26,7 +26,9 @@ const TabsContainer = () => {
         <CurrenciesList />
       </div>
       <div role="tabpanel" hidden={value !== 1}>
-        <Favourites />
+        {/* If I used redux I could avoided this since the state would have been shared.
+         But I had no time to do so */}
+        <Favourites shouldUpdate={!!value} />
       </div>
     </React.Fragment>
   );

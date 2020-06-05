@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import PaginatedTable from "./PaginatedTable";
-import IconButton from "@material-ui/core/IconButton";
-import { red, grey } from "@material-ui/core/colors";
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { getCurrencies, addFavourite, removeFavourite } from "../helpers/api";
 import CustomSnackBar from "./CustomSnackBar";
+import { getCurrenciesColumns } from "../helpers/tableColumns";
 
 const CurrenciesList = () => {
   const [currencies, setCurrencies] = useState([]);
   const [snackBarInfo, setSnackBarInfo] = useState({ open: false });
 
-  const handleFavClick = async item => {
+  const handleFavClick = async (item, index) => {
     try {
-      item.isFav ? await removeFavourite(item.id) : await addFavourite(item);
+      const { data } = item.isFav
+        ? await removeFavourite(item.id)
+        : await addFavourite(item);
 
       setSnackBarInfo({
         open: true,
@@ -21,6 +21,9 @@ const CurrenciesList = () => {
           : `Added ${item.name} to favs`,
         handleClose
       });
+      debugger;
+      currencies[index] = data;
+      setCurrencies([...currencies]);
     } catch (err) {
       setSnackBarInfo({
         open: true,
@@ -30,46 +33,7 @@ const CurrenciesList = () => {
     }
   };
 
-  const columns = [
-    {
-      id: "name",
-      label: "Name",
-      format: ({ id, name }) => (
-        <React.Fragment>
-          <img
-            width="30"
-            src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${id}.png`}
-          />
-          {name}
-        </React.Fragment>
-      )
-    },
-    {
-      id: "quote",
-      label: "Market Price",
-      align: "right",
-      format: ({ quote }) => quote.USD.price.toLocaleString("en-US")
-    },
-    {
-      id: "circulating_supply",
-      label: "Circulating Supply",
-      align: "right",
-      format: ({ circulating_supply }) =>
-        circulating_supply.toLocaleString("en-US").concat(" USD")
-    },
-    {
-      id: "favourites",
-      label: "Favourites",
-      align: "right",
-      format: item => (
-        <IconButton onClick={() => handleFavClick(item)}>
-          <FavoriteBorderOutlinedIcon
-            style={{ color: item.isFav ? red[500] : grey[500] }}
-          />
-        </IconButton>
-      )
-    }
-  ];
+  const columns = getCurrenciesColumns(handleFavClick);
 
   const fetchCurrencies = async params => {
     try {
@@ -79,6 +43,7 @@ const CurrenciesList = () => {
       console.error(err);
     }
   };
+
   useEffect(() => {
     fetchCurrencies({ limit: 25, start: 1 });
   }, []);
@@ -87,7 +52,7 @@ const CurrenciesList = () => {
     if (reason === "clickaway") {
       return;
     }
-    setSnackBarInfo({ opne: false, message: "", handleClose });
+    setSnackBarInfo({ open: false, message: "", handleClose });
   };
 
   return (

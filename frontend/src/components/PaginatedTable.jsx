@@ -47,13 +47,13 @@ const PaginatedTable = ({ columns, rows, fetchData, rowsPerPage }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => {
+            {rows.map((row, index) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                   {columns.map(column => {
                     return (
                       <TableCell key={column.id} align={column.align}>
-                        {column.format(row)}
+                        {column.format(row, index)}
                       </TableCell>
                     );
                   })}
