@@ -15,14 +15,6 @@ app.use(cors());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use("/", (req, res, next) => {
-  try {
-    next();
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
-
 app.use("/", routes);
 
 app.listen(3001, () => {
