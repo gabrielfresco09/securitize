@@ -11,14 +11,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CustomPagination = ({ rowsPerPage, handleChangePage, page }) => {
+const CustomPagination = ({
+  rowsPerPage,
+  handleChangePage,
+  page,
+  totalCount
+}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Pagination
-        // FIXME coinmarketcap api doesn't provide the count of total available coins
-        count={Math.round(2660 / rowsPerPage)}
+        count={Math.round(totalCount / rowsPerPage)}
         onChange={handleChangePage}
         page={page}
         showFirstButton
@@ -31,7 +35,8 @@ const CustomPagination = ({ rowsPerPage, handleChangePage, page }) => {
 CustomPagination.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
   handleChangePage: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired
+  page: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired
 };
 
 export default CustomPagination;

@@ -24,7 +24,8 @@ const PaginatedTable = ({
   rows,
   fetchData,
   rowsPerPage,
-  showPagination
+  showPagination,
+  totalCount
 }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -58,7 +59,7 @@ const PaginatedTable = ({
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+              <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                 {columns.map(column => {
                   return (
                     <TableCell key={column.id} align={column.align}>
@@ -74,6 +75,7 @@ const PaginatedTable = ({
       {showPagination && (
         <CustomPagination
           page={page}
+          totalCount={totalCount}
           handleChangePage={handleChangePage}
           rowsPerPage={rowsPerPage}
         />
@@ -83,7 +85,8 @@ const PaginatedTable = ({
 };
 
 PaginatedTable.defaultProps = {
-  rowsPerPage: 25
+  rowsPerPage: 25,
+  totalCount: 25
 };
 
 PaginatedTable.propTypes = {
@@ -98,7 +101,8 @@ PaginatedTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.shape(PropTypes.any)).isRequired,
   fetchData: PropTypes.func.isRequired,
   rowsPerPage: PropTypes.number,
-  showPagination: PropTypes.bool.isRequired
+  showPagination: PropTypes.bool.isRequired,
+  totalCount: PropTypes.number
 };
 
 export default PaginatedTable;

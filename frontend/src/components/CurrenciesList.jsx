@@ -6,7 +6,7 @@ import { getCurrenciesColumns } from "../helpers/tableColumns";
 import { Title } from "./Title";
 
 const CurrenciesList = () => {
-  const [currencies, setCurrencies] = useState([]);
+  const [currencies, setCurrencies] = useState({ data: [], totalCount: 0 });
   const [snackBarInfo, setSnackBarInfo] = useState({ open: false });
 
   const handleFavClick = async (item, index) => {
@@ -22,8 +22,11 @@ const CurrenciesList = () => {
           : `Added ${item.name} to favs`,
         handleClose
       });
-      currencies[index] = data;
-      setCurrencies([...currencies]);
+      currencies.data[index] = data;
+      setCurrencies({
+        data: [...currencies.data],
+        totalCount: currencies.totalCount
+      });
     } catch (err) {
       setSnackBarInfo({
         open: true,
@@ -59,7 +62,8 @@ const CurrenciesList = () => {
     <div>
       <Title title="Cryptocurrencies" />
       <PaginatedTable
-        rows={currencies}
+        rows={currencies.data}
+        totalCount={currencies.totalCount}
         fetchData={fetchCurrencies}
         columns={columns}
         rowsPerPage={25}
