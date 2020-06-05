@@ -27,7 +27,7 @@ app.listen(3001, async () => {
 
   /* This is a hack to allow the front to work normally since coinmarketcap API 
   doesn't return the total count of available coins, I make a big query on start up 
-  that is why I set the limit to the maximum allow by the API*/
+  that is why I set the limit to the maximum allow by the API */
   try {
     const { data } = await getCurrencies({
       start: 1,
